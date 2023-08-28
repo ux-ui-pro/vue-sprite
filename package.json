@@ -1,0 +1,50 @@
+{
+  "name": "vue-sprite",
+  "version": "0.0.1-alpha.1",
+  "description": "SVG Sprite",
+  "author": "ux-ui.pro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ux-ui-pro/vue-sprite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ux-ui-pro/vue-sprite/issues"
+  },
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-sprite.umd.cjs",
+  "module": "./dist/vue-sprite.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-sprite.js",
+      "require": "./dist/vue-sprite.umd.cjs"
+    },
+    "./index.css": "./dist/index.css"
+  },
+  "exclude": [
+    "src/App.vue",
+    "src/main.js"
+  ],
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.4.4",
+    "vue": "^3.3.4",
+    "sass": "^1.66.1"
+  },
+  "keywords": [
+    "vue",
+    "svg",
+    "icon",
+    "sprite",
+    "localStorage",
+    "component"
+  ]
+}
