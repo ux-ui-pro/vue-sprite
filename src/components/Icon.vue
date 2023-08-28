@@ -7,6 +7,10 @@ export default {
 		id: {
 			type: String,
 			required: true
+		},
+		file: {
+			type: String,
+			default: './sprite.svg'
 		}
 	},
 	setup(props) {
@@ -55,7 +59,7 @@ export default {
 			}
 		}
 
-		init('./icons.svg').then()
+		init(props.file).then()
 
 		return {
 			id

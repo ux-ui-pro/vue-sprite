@@ -1,50 +1,54 @@
-import { ref as f, openBlock as g, createElementBlock as p, createElementVNode as m } from "vue";
-const u = (o, c) => {
-  const n = o.__vccOpts || o;
-  for (const [e, t] of c)
-    n[e] = t;
-  return n;
-}, w = {
+import { ref as f, openBlock as g, createElementBlock as p, createElementVNode as u } from "vue";
+const S = (t, i) => {
+  const o = t.__vccOpts || t;
+  for (const [e, n] of i)
+    o[e] = n;
+  return o;
+}, m = {
   name: "Icon",
   props: {
     id: {
       type: String,
       required: !0
+    },
+    file: {
+      type: String,
+      default: "./sprite.svg"
     }
   },
-  setup(o) {
-    const c = f(o.id), n = typeof window.localStorage < "u", e = document.body, t = (s) => {
+  setup(t) {
+    const i = f(t.id), o = typeof window.localStorage < "u", e = document.body, n = (s) => {
       document.getElementById("iconset") || (e ? e.insertAdjacentHTML("beforeend", s) : document.addEventListener("DOMContentLoaded", () => {
         e.insertAdjacentHTML("beforeend", s);
       }));
     };
     return (async (s) => {
-      if (n) {
+      if (o) {
         const r = localStorage.getItem("inlineSVGsize"), a = localStorage.getItem("inlineSVGdata"), d = await fetch(s);
         if (!d.ok)
           throw new Error("Network response was not ok");
-        const i = await d.text();
-        r && r === i.length.toString() ? t(a) : (t(i), localStorage.setItem("inlineSVGdata", i), localStorage.setItem("inlineSVGsize", i.length.toString()));
+        const c = await d.text();
+        r && r === c.length.toString() ? n(a) : (n(c), localStorage.setItem("inlineSVGdata", c), localStorage.setItem("inlineSVGsize", c.length.toString()));
       } else {
         const r = await fetch(s);
         if (!r.ok)
           throw new Error("Network response was not ok");
         const a = await r.text();
-        t(a);
+        n(a);
       }
-    })("./icons.svg").then(), {
-      id: c
+    })(t.file).then(), {
+      id: i
     };
   }
-}, S = { class: "svg-icon" }, _ = ["xlink:href"];
-function h(o, c, n, e, t, l) {
-  return g(), p("svg", S, [
-    m("use", {
+}, w = { class: "svg-icon" }, _ = ["xlink:href"];
+function h(t, i, o, e, n, l) {
+  return g(), p("svg", w, [
+    u("use", {
       "xlink:href": `#${e.id}`
     }, null, 8, _)
   ]);
 }
-const x = /* @__PURE__ */ u(w, [["render", h]]);
+const y = /* @__PURE__ */ S(m, [["render", h]]);
 export {
-  x as default
+  y as default
 };
