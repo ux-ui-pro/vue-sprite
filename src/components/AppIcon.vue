@@ -51,7 +51,7 @@ export default {
 
 		onMounted(() => {
 			app.value = document.getElementById('app');
-			set.value = document.getElementById('iconset');
+			set.value = document.getElementById('sprite');
 
 			loadData(props.file);
 		});

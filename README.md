@@ -13,37 +13,40 @@
 </div>
 <br>
 
-## Install
+&#10148; **Install**
+ 
 ```
-$ yarn add vue-sprite
+yarn add vue-sprite
 ```
 <br>
 
-## Import
+&#10148; **Import**
+
 ```javascript
-import Icon from 'vue-sprite'
+import AppIcon from 'vue-sprite'
 ```
 <br>
 
-## Use
+&#10148; **Use**
+
 <sub>main.js</sub>
 ```javascript
 import { createApp } from 'vue'
-import Icon from 'vue-sprite'
-import App from './App.vue'
+import AppIcon from 'vue-sprite'
+import App from './App.vue';
 
 const app = createApp(App)
 
-app.component('Icon', Icon)
+app.component('AppIcon', AppIcon)
 app.mount('#app')
 ```
 <sub>The default path to the sprite file is `'./sprite.svg'`. You can pass your sprite file path:</sub>
 ```javascript
-Icon.props.file.default = 'my_file_path/my_file.svg'
+AppIcon.props.file.default = 'my_file_path/my_file.svg'
 ```
 <sub>sprite.svg</sub>
 ```HTML
-<svg id="iconset" aria-hidden="true" style="width: 0; height: 0; position: absolute;">
+<svg id="sprite" aria-hidden="true" style="width: 0; height: 0; position: absolute;">
 	<symbol id="icon-one" viewBox="0 0 100 100">
 		<path ... />
 	</symbol>
@@ -55,9 +58,10 @@ Icon.props.file.default = 'my_file_path/my_file.svg'
 ```
 <sub>Use icons in any app component</sub>
 ```html
-<Icon id="my-awesome-icon" />
+<AppIcon name="icon-one" />
 ```
 <br>
 
-## License
+&#10148; **License**
+
 vue-sprite is released under MIT license
