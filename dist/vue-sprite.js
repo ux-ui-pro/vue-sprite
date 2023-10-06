@@ -1,8 +1,8 @@
-import { ref as i, onMounted as f, computed as g, openBlock as m, createElementBlock as S, createElementVNode as v } from "vue";
-const _ = (e, s) => {
-  const n = e.__vccOpts || e;
-  for (const [t, o] of s)
-    n[t] = o;
+import { ref as r, onMounted as f, computed as g, openBlock as m, createElementBlock as S, createElementVNode as v } from "vue";
+const _ = (t, o) => {
+  const n = t.__vccOpts || t;
+  for (const [e, a] of o)
+    n[e] = a;
   return n;
 }, h = {
   name: "AppIcon",
@@ -16,34 +16,34 @@ const _ = (e, s) => {
       default: "./sprite.svg"
     }
   },
-  setup(e) {
-    const s = i(e.name), n = typeof window.localStorage < "u", t = i(null), o = i(null), a = i(null), d = (l) => {
-      o.value || t.value.insertAdjacentHTML("beforeend", l);
-    }, u = async (l) => {
-      if (n) {
-        const c = localStorage.getItem("inlineSVGsize"), p = localStorage.getItem("inlineSVGdata"), r = await (await fetch(l)).text();
-        c && c === r.length.toString() ? a.value = p : (a.value = r, localStorage.setItem("inlineSVGdata", r), localStorage.setItem("inlineSVGsize", r.length.toString()));
+  setup(t) {
+    const o = r(null), n = r(null), e = r(null), a = r(t.name), i = typeof window.localStorage < "u", u = (s) => {
+      n.value || o.value.insertAdjacentHTML("beforeend", s);
+    }, p = async (s) => {
+      if (i) {
+        const l = localStorage.getItem("inlineSVGSize"), d = localStorage.getItem("inlineSVGData"), c = await (await fetch(s)).text();
+        l && l === c.length.toString() ? e.value = d : (e.value = c, localStorage.setItem("inlineSVGData", c), localStorage.setItem("inlineSVGSize", c.length.toString()));
       } else {
-        const c = await fetch(l);
-        a.value = await c.text();
+        const l = await fetch(s);
+        e.value = await l.text();
       }
-      d(a.value);
+      u(e.value);
     };
     return f(() => {
-      t.value = document.getElementById("app"), o.value = document.getElementById("sprite"), u(e.file);
+      o.value = document.getElementById("app"), n.value = document.getElementById("sprite"), p(t.file);
     }), {
-      id: g(() => s.value)
+      name: g(() => a.value)
     };
   }
 }, I = { class: "svg-icon" }, x = ["xlink:href"];
-function y(e, s, n, t, o, a) {
+function y(t, o, n, e, a, i) {
   return m(), S("svg", I, [
     v("use", {
-      "xlink:href": `#${t.id}`
+      "xlink:href": `#${e.name}`
     }, null, 8, x)
   ]);
 }
-const V = /* @__PURE__ */ _(h, [["render", y]]);
+const D = /* @__PURE__ */ _(h, [["render", y]]);
 export {
-  V as default
+  D as default
 };

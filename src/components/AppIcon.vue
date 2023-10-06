@@ -1,5 +1,5 @@
 <script>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 export default {
 	name: 'AppIcon',
@@ -14,22 +14,22 @@ export default {
 		},
 	},
 	setup(props) {
+		const app = ref(null);
+		const sprite = ref(null);
+		const data = ref(null);
 		const iconName = ref(props.name);
 		const isLocalStorage = typeof window.localStorage !== 'undefined';
-		const app = ref(null);
-		const set = ref(null);
-		const data = ref(null);
 
 		const insert = (svgData) => {
-			if (!set.value) {
+			if (!sprite.value) {
 				app.value.insertAdjacentHTML('beforeend', svgData);
 			}
 		};
 
 		const loadData = async (file) => {
 			if (isLocalStorage) {
-				const storedSize = localStorage.getItem('inlineSVGsize');
-				const storedData = localStorage.getItem('inlineSVGdata');
+				const storedSize = localStorage.getItem('inlineSVGSize');
+				const storedData = localStorage.getItem('inlineSVGData');
 				const response = await fetch(file);
 				const responseData = await response.text();
 
@@ -38,11 +38,12 @@ export default {
 				} else {
 					data.value = responseData;
 
-					localStorage.setItem('inlineSVGdata', responseData);
-					localStorage.setItem('inlineSVGsize', responseData.length.toString());
+					localStorage.setItem('inlineSVGData', responseData);
+					localStorage.setItem('inlineSVGSize', responseData.length.toString());
 				}
 			} else {
 				const response = await fetch(file);
+
 				data.value = await response.text();
 			}
 
@@ -51,13 +52,13 @@ export default {
 
 		onMounted(() => {
 			app.value = document.getElementById('app');
-			set.value = document.getElementById('sprite');
+			sprite.value = document.getElementById('sprite');
 
 			loadData(props.file);
 		});
 
 		return {
-			id: computed(() => iconName.value),
+			name: computed(() => iconName.value),
 		};
 	},
 };
@@ -65,6 +66,6 @@ export default {
 
 <template>
 	<svg class="svg-icon">
-		<use :xlink:href="`#${ id }`"></use>
+		<use :xlink:href="`#${ name }`"></use>
 	</svg>
 </template>
