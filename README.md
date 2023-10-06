@@ -1,16 +1,16 @@
-<div align="center">
 <br>
+<p align="center"><strong>vue-sprite</strong></p>
 
-# vue-sprite
+<div align="center">
 
 [![npm](https://img.shields.io/npm/v/vue-sprite.svg?colorB=brightgreen)](https://www.npmjs.com/package/vue-sprite)
 [![GitHub package version](https://img.shields.io/github/package-json/v/ux-ui-pro/vue-sprite.svg)](https://github.com/ux-ui-pro/vue-sprite)
 [![NPM Downloads](https://img.shields.io/npm/dm/vue-sprite.svg?style=flat)](https://www.npmjs.org/package/vue-sprite)
 
-<sup>700B gzipped</sup>
-
-<h3><a href="https://p3jt9k.csb.app/">Demo</a></h3>
 </div>
+
+<p align="center"><sup>700B gzipped</sup></p>
+<p align="center"><a href="https://p3jt9k.csb.app/">Demo</a></p>
 <br>
 
 &#10148; **Install**
@@ -40,10 +40,12 @@ const app = createApp(App)
 app.component('AppIcon', AppIcon)
 app.mount('#app')
 ```
+
 <sub>The default path to the sprite file is `'./sprite.svg'`. You can pass your sprite file path:</sub>
 ```javascript
 AppIcon.props.file.default = 'my_file_path/my_file.svg'
 ```
+
 <sub>sprite.svg</sub>
 ```HTML
 <svg id="sprite" aria-hidden="true" style="width: 0; height: 0; position: absolute;">
@@ -56,6 +58,7 @@ AppIcon.props.file.default = 'my_file_path/my_file.svg'
 	...
 </svg>
 ```
+
 <sub>Use icons in any app component</sub>
 ```html
 <AppIcon name="icon-one" />
