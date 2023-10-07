@@ -1,6 +1,8 @@
 <script>
 import { ref, onMounted, computed } from 'vue';
 
+const spriteAdded = ref(false);
+
 export default {
 	name: 'AppIcon',
 	props: {
@@ -21,8 +23,10 @@ export default {
 		const isLocalStorage = typeof window.localStorage !== 'undefined';
 
 		const insert = (svgData) => {
-			if (!sprite.value) {
+			if (!spriteAdded.value) {
 				app.value.insertAdjacentHTML('beforeend', svgData);
+
+				spriteAdded.value = true;
 			}
 		};
 
@@ -58,7 +62,7 @@ export default {
 		});
 
 		return {
-			name: computed(() => iconName.value),
+			iconName: computed(() => iconName.value),
 		};
 	},
 };
@@ -66,6 +70,6 @@ export default {
 
 <template>
 	<svg class="svg-icon">
-		<use :xlink:href="`#${ name }`"></use>
+		<use :xlink:href="`#${ iconName }`"></use>
 	</svg>
 </template>
