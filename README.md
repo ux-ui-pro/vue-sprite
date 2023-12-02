@@ -9,7 +9,7 @@
 
 </div>
 
-<p align="center"><sup>700B gzipped</sup></p>
+<p align="center"><sup>850B gzipped</sup></p>
 <p align="center"><a href="https://p3jt9k.csb.app/">Demo</a></p>
 <br>
 

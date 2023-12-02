@@ -12,43 +12,61 @@ export default {
 		},
 		file: {
 			type: String,
-			default: './sprite.svg',
+			default: '/sprite.svg',
 		},
 	},
 	setup(props) {
 		const app = ref(null);
-		const sprite = ref(null);
 		const data = ref(null);
-		const iconName = ref(props.name);
+
 		const isLocalStorage = typeof window.localStorage !== 'undefined';
 
 		const insert = (svgData) => {
-			if (!spriteAdded.value) {
+			const hasSpriteId = /id="sprite"/.test(svgData);
+
+			if (!spriteAdded.value && hasSpriteId) {
 				app.value.insertAdjacentHTML('beforeend', svgData);
 
 				spriteAdded.value = true;
 			}
 		};
 
+		const checkSVGFileMIME = async (file) => {
+			const headResponse = await fetch(file, { method: 'HEAD' });
+			const contentType = headResponse.headers.get('content-type');
+
+			return contentType === 'image/svg+xml';
+		};
+
 		const loadData = async (file) => {
+			const fileResponse = await fetch(file);
+			const fileData = await fileResponse.text();
+			const fileSize = fileData.length;
+
+			const setSprite = async () => {
+				data.value = fileData;
+
+				if ((await checkSVGFileMIME(file))) {
+					localStorage.setItem('inlineSVGData', fileData);
+					localStorage.setItem('inlineSVGSize', fileSize.toString());
+				}
+			};
+
 			if (isLocalStorage) {
 				const storedSize = localStorage.getItem('inlineSVGSize');
 				const storedData = localStorage.getItem('inlineSVGData');
-				const response = await fetch(file);
-				const responseData = await response.text();
 
-				if (storedSize && storedSize === responseData.length.toString()) {
-					data.value = storedData;
+				if (storedSize && storedData) {
+					if (storedSize !== fileSize.toString()) {
+						await setSprite();
+					} else {
+						data.value = storedData;
+					}
 				} else {
-					data.value = responseData;
-
-					localStorage.setItem('inlineSVGData', responseData);
-					localStorage.setItem('inlineSVGSize', responseData.length.toString());
+					await setSprite();
 				}
 			} else {
-				const response = await fetch(file);
-
-				data.value = await response.text();
+				data.value = fileData;
 			}
 
 			insert(data.value);
@@ -56,13 +74,14 @@ export default {
 
 		onMounted(() => {
 			app.value = document.getElementById('app');
-			sprite.value = document.getElementById('sprite');
 
 			loadData(props.file);
 		});
 
+		const iconName = computed(() => props.name);
+
 		return {
-			iconName: computed(() => iconName.value),
+			iconName,
 		};
 	},
 };
@@ -70,6 +89,6 @@ export default {
 
 <template>
 	<svg class="svg-icon">
-		<use :xlink:href="`#${ iconName }`"></use>
+		<use :href="`#${ iconName }`"></use>
 	</svg>
 </template>
